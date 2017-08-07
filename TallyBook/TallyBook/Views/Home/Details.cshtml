@@ -1,0 +1,29 @@
+﻿@model TallyBook.Models.DetailsViewModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>#</th>
+                <th>類別</th>
+                <th>日期</th>
+                <th>金額</th>
+            </tr>
+            @{
+                for (int i = 0; i< Model.DetailList.Count; i++)
+                {
+                    <tr>
+                        <th>@(i+1)</th>
+                        <th>@Html.DisplayFor(x => x.DetailList[i].Type)</th>
+                        <th>@Html.DisplayFor(x => x.DetailList[i].DataDate)</th>
+                        <th>@Html.DisplayFor(x => x.DetailList[i].Amount)</th>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>
