@@ -1,4 +1,4 @@
-﻿@model TallyBook.Models.DetailsViewModel
+﻿@model List<TallyBook.Models.ItemModels>
 @{
     ViewBag.Title = "Details";
     Layout = "";
@@ -14,13 +14,15 @@
                 <th>金額</th>
             </tr>
             @{
-                for (int i = 0; i< Model.DetailList.Count; i++)
+                int i = 0;
+
+                foreach (var item in Model)
                 {
                     <tr>
-                        <th>@(i+1)</th>
-                        <th>@Html.DisplayFor(x => x.DetailList[i].Type)</th>
-                        <th>@Html.DisplayFor(x => x.DetailList[i].DataDate)</th>
-                        <th>@Html.DisplayFor(x => x.DetailList[i].Amount)</th>
+                        <th>@(++i)</th>
+                        <th>@Html.DisplayFor(x => item.Type)</th>
+                        <th>@Html.DisplayFor(x => item.DataDate)</th>
+                        <th>@Html.DisplayFor(x => item.Amount)</th>
                     </tr>
                 }
             }

@@ -9,6 +9,13 @@ namespace TallyBook.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly AccountBookService _accountBookSvc;
+
+        public HomeController()
+        {
+            _accountBookSvc = new AccountBookService();
+        }
+
         /// <summary>
         /// 首頁
         /// </summary>
@@ -47,17 +54,21 @@ namespace TallyBook.Controllers
         [ChildActionOnly]
         public ActionResult Details()
         {
-            DetailsViewModel detailVM = new DetailsViewModel();
-            ItemModels data1 = new ItemModels() { Type = "支出", Amount = 1299, DataDate = DateTime.Now, Memo = "買書" };
-            ItemModels data2 = new ItemModels() { Type = "支出", Amount = 100, DataDate = DateTime.Now.AddDays(2), Memo = "午餐" };
-            ItemModels data3 = new ItemModels() { Type = "支出", Amount = 8000, DataDate = DateTime.Now.AddMonths(-1), Memo = "房租" };
+            //DetailsViewModel detailVM = new DetailsViewModel();
+            //ItemModels data1 = new ItemModels() { Type = "支出", Amount = 1299, DataDate = DateTime.Now, Memo = "買書" };
+            //ItemModels data2 = new ItemModels() { Type = "支出", Amount = 100, DataDate = DateTime.Now.AddDays(2), Memo = "午餐" };
+            //ItemModels data3 = new ItemModels() { Type = "支出", Amount = 8000, DataDate = DateTime.Now.AddMonths(-1), Memo = "房租" };
 
-            detailVM.DetailList = new List<ItemModels>();
-            detailVM.DetailList.Add(data1);
-            detailVM.DetailList.Add(data2);
-            detailVM.DetailList.Add(data3);
+            //detailVM.DetailList = new List<ItemModels>();
+            //detailVM.DetailList.Add(data1);
+            //detailVM.DetailList.Add(data2);
+            //detailVM.DetailList.Add(data3);
 
-            return View(detailVM);
+            List<ItemModels> detailList = new List<ItemModels>();
+
+            detailList = _accountBookSvc.Lookup().ToList();
+
+            return View(detailList);
         }
     }
 }
