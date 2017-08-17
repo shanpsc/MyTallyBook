@@ -15,17 +15,17 @@ namespace TallyBook.Models
             _db = new SkillTreeHomeworkEntities();
         }
 
-        public List<ItemModels> Lookup()
+        public IQueryable<ItemModels> Lookup()
         {
             var rst = (from item in _db.AccountBook
                        select new ItemModels
                        {
-                           Type = item.Categoryyy.ToString(),
+                           Type = (item.Categoryyy==0 ? "支出" : "收入"),
                            DataDate = item.Dateee,
                            Amount = item.Amounttt,
                            Memo = item.Remarkkk
                        });
-            return rst.ToList();
+            return rst;
         }
     }
 }

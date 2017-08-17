@@ -1,7 +1,14 @@
-﻿@model List<TallyBook.Models.ItemModels>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<TallyBook.Models.ItemModels>
 @{
     ViewBag.Title = "Details";
     Layout = "";
+}
+
+@section style
+{
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
 }
 
 <div class="row">
@@ -27,5 +34,6 @@
                 }
             }
         </table>
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
     </div>
 </div>

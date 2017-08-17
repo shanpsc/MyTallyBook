@@ -1,4 +1,5 @@
-﻿@{
+﻿@model int
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -45,6 +46,6 @@
 
 <div class="row">
     <div class="col-md-12">
-        @Html.Action("Details")
+        @Html.Action("Details", new { Model })
     </div>
 </div>
