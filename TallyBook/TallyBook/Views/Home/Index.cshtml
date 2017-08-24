@@ -14,7 +14,7 @@
                 @Html.LabelFor(x => x.item.Type)
             </div>
             <div class="col-sm-10">
-                @Html.DropDownListFor(x => x.item.Type, (List<SelectListItem>)ViewBag.typeSelectList, new { htmlAttributes = new { @class = "form-control"}})
+                @Html.DropDownListFor(x => x.item.Category, (List<SelectListItem>)ViewBag.typeSelectList, new { htmlAttributes = new { @class = "form-control"}})
 
             </div>
         </div>

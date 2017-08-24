@@ -64,11 +64,9 @@ namespace TallyBook.Controllers
         [ChildActionOnly]
         public ActionResult Details(int? page)
         {
-            List<ItemModels> detailList = new List<ItemModels>();
-
-            detailList = _accountBookSvc.Lookup().OrderByDescending(x => x.DataDate).ToList();
+            var details = _accountBookSvc.Lookup().OrderByDescending(x => x.DataDate);
             int currentPage = (page.HasValue ? ( page.Value<1 ? 1 : page.Value) : 1);
-            return View(detailList.ToPagedList(currentPage, defaultPageSize));
+            return View(details.ToPagedList(currentPage, defaultPageSize));
         }
 
         [HttpPost]
@@ -79,6 +77,12 @@ namespace TallyBook.Controllers
             {
                 if (vm.item != null)
                 {
+                    if (vm.item.Amount <= 0)
+                    {
+                        ModelState.AddModelError("item.Amount", "金額不可小於或等於零!");
+                        isSuccess = false;
+                    }
+
                     if (vm.item.DataDate.Date > DateTime.Now.Date)
                     {
                         ModelState.AddModelError("item.DataDate", "日期不可大於今天!");

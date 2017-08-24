@@ -9,7 +9,7 @@ namespace TallyBook.Models
     public class ItemModels
     {
         /// <summary>
-        /// 類別
+        /// 類別(Display)
         /// </summary>
         [Display(Name = "類別")]
         public string Type { get; set; }
@@ -19,7 +19,7 @@ namespace TallyBook.Models
         /// </summary>
         [Display(Name = "金額")]
         [Required]
-        [Range(1, int.MaxValue, ErrorMessage ="金額需為正整數!")]
+        [Range(1, int.MaxValue, ErrorMessage = "金額需大於零!")]
         public Decimal Amount { get; set; }
 
         /// <summary>
@@ -38,5 +38,9 @@ namespace TallyBook.Models
         [Required]
         public string Memo { get; set; }
 
+        /// <summary>
+        /// 類別(Value)
+        /// </summary>
+        public int Category { get; set; }
     }
 }

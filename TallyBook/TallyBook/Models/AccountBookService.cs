@@ -20,6 +20,7 @@ namespace TallyBook.Models
             var rst = (from item in _db.AccountBook
                        select new ItemModels
                        {
+                           Category = item.Categoryyy,
                            Type = (item.Categoryyy == 0 ? "支出": "收入"),
                            DataDate = item.Dateee,
                            Amount = item.Amounttt,
@@ -30,11 +31,10 @@ namespace TallyBook.Models
 
         public void Add(ItemModels item)
         {
-            int intType;
             AccountBook i = new AccountBook()
             {
                 Id = Guid.NewGuid(),
-                Categoryyy = (int.TryParse(item.Type, out intType)? intType : 0),
+                Categoryyy = item.Category,
                 Dateee = item.DataDate,
                 Amounttt = (int)item.Amount,
                 Remarkkk = item.Memo
