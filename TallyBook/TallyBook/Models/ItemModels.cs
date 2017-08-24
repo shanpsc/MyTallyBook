@@ -19,7 +19,7 @@ namespace TallyBook.Models
         /// </summary>
         [Display(Name = "金額")]
         [Required]
-        [Range(0, 32767)]
+        [Range(1, int.MaxValue, ErrorMessage ="金額需為正整數!")]
         public Decimal Amount { get; set; }
 
         /// <summary>
@@ -35,6 +35,7 @@ namespace TallyBook.Models
         /// </summary>
         [Display(Name = "備註")]
         [StringLength(100)]
+        [Required]
         public string Memo { get; set; }
 
     }

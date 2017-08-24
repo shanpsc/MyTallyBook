@@ -74,14 +74,33 @@ namespace TallyBook.Controllers
         [HttpPost]
         public ActionResult Index(IndexViewModel vm)
         {
+            bool isSuccess = true;
             if (ModelState.IsValid)
             {
-                _accountBookSvc.Add(vm.item);
+                if (vm.item != null)
+                {
+                    if (vm.item.DataDate.Date > DateTime.Now.Date)
+                    {
+                        ModelState.AddModelError("item.DataDate", "日期不可大於今天!");
+                        isSuccess = false;
+                    }
+
+                    if (isSuccess)
+                    {
+                        _accountBookSvc.Add(vm.item);
+                        
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid input item!");
+                }
             }
 
             List<SelectListItem> typeList = new List<SelectListItem>(GetTypeData());
             ViewBag.typeSelectList = typeList;
             return View(vm);
+            
         }
 
         
