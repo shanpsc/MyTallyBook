@@ -178,7 +178,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TallyBookDBModels.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\ViewModels\DetailsViewModel.cs" />
+    <Compile Include="Models\ViewModels\IndexViewModel.cs" />
     <Compile Include="Models\ItemModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

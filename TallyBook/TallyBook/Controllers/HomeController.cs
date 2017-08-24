@@ -25,7 +25,13 @@ namespace TallyBook.Controllers
         /// <returns></returns>
         public ActionResult Index(int page = 1)
         {
-            return View(page);
+            IndexViewModel vm = new IndexViewModel();
+            vm.pageNum = page;
+
+            List<SelectListItem> typeList = new List<SelectListItem>(GetTypeData());
+            ViewBag.typeSelectList = typeList;
+
+            return View(vm);
         }
 
         /// <summary>
@@ -60,9 +66,32 @@ namespace TallyBook.Controllers
         {
             List<ItemModels> detailList = new List<ItemModels>();
 
-            detailList = _accountBookSvc.Lookup().OrderBy(x => x.DataDate).ToList();
+            detailList = _accountBookSvc.Lookup().OrderByDescending(x => x.DataDate).ToList();
             int currentPage = (page.HasValue ? ( page.Value<1 ? 1 : page.Value) : 1);
             return View(detailList.ToPagedList(currentPage, defaultPageSize));
+        }
+
+        [HttpPost]
+        public ActionResult Index(IndexViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                _accountBookSvc.Add(vm.item);
+            }
+
+            List<SelectListItem> typeList = new List<SelectListItem>(GetTypeData());
+            ViewBag.typeSelectList = typeList;
+            return View(vm);
+        }
+
+        
+        private List<SelectListItem> GetTypeData()
+        {
+            List<SelectListItem> dataList = new List<SelectListItem>();
+            dataList.Add(new SelectListItem() { Text = "支出", Value = "0" });
+            dataList.Add(new SelectListItem() { Text = "收入", Value = "1" });
+            return dataList;
+
         }
     }
 }
